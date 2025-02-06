@@ -8,8 +8,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      // Root widget
+    return MaterialApp( // Root widget
       home: Scaffold(
         appBar: AppBar(
           title: const Text('My Home Page'),
@@ -24,9 +23,9 @@ class MyApp extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () {
                       Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Dashboard()),
-                      );
+                              context,
+                              MaterialPageRoute(builder: (context) => Dashboard()),
+                            );
                     },
                     child: const Text('Dashboard'),
                   ),
