@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 void main() async {
@@ -127,12 +126,11 @@ class SecondPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Logo or title of the website
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                'Welcome to My Landing Page',
-                style: GoogleFonts.poppins(
+                'HYDROS x ATLANTIS',
+                style: TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.bold,
                   color: Colors.blueAccent,
@@ -140,35 +138,29 @@ class SecondPage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-
-            // Description or tagline
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 32.0),
               child: Text(
-                'This is a modern, clean landing page built with Flutter. Explore the features and get started!',
+                'Welcome to Project HYDROS: ',
                 style: TextStyle(fontSize: 18, color: Colors.grey[700]),
                 textAlign: TextAlign.center,
               ),
             ),
-
-            // Button to call to action
             SizedBox(height: 40),
             ElevatedButton(
               onPressed: () {
-                // You can perform any action here, like navigating to another page or showing a dialog
+                // Add your action here
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blueAccent, // Button color
+                backgroundColor: Colors.blueAccent,
                 padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                 textStyle: TextStyle(fontSize: 18),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
               ),
-              child: Text('Get Started'),
+              child: Text('View Dashboard'),
             ),
-
-            // Loading spinner (just an example of smooth animation)
             SizedBox(height: 40),
             SpinKitFadingCircle(
               color: Colors.blueAccent,
