@@ -30,7 +30,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  supabase_flutter: ^0.2.9
   flutter_table: 1.1.0
   google_fonts: 3.0.0  # Google Fonts package for custom fonts
   flutter_spinkit: ^5.1.0  
