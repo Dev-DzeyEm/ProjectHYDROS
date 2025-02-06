@@ -15,9 +15,13 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-dependencies:
-  flutter:
-    sdk: flutter
-  supabase_flutter: ^0.2.9
-  flutter_table: ^2.0.0
+## Dependencies:
+### dependencies:
+###  flutter:
+###    sdk: flutter
+###  supabase_flutter: ^0.2.9
+###  flutter_table: ^2.0.0
 
+## installs
+### flutter pub add flutter_table:^1.1.0
+### flutter pub upgrade google_fonts
