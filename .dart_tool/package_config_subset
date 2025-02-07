@@ -74,6 +74,7 @@ http_parser
 3.4
 file:///C:/Users/nickie%20Boy/AppData/Local/Pub/Cache/hosted/pub.dev/http_parser-4.1.2/
 file:///C:/Users/nickie%20Boy/AppData/Local/Pub/Cache/hosted/pub.dev/http_parser-4.1.2/lib/
+
 jwt_decode
 2.12
 file:///C:/Users/nickie%20Boy/AppData/Local/Pub/Cache/hosted/pub.dev/jwt_decode-0.3.1/
@@ -180,8 +181,10 @@ file:///C:/Users/nickie%20Boy/AppData/Local/Pub/Cache/hosted/pub.dev/supabase-0.
 file:///C:/Users/nickie%20Boy/AppData/Local/Pub/Cache/hosted/pub.dev/supabase-0.2.15/lib/
 supabase_flutter
 2.12
+
 file:///C:/Users/nickie%20Boy/AppData/Local/Pub/Cache/hosted/pub.dev/supabase_flutter-0.2.12/
 file:///C:/Users/nickie%20Boy/AppData/Local/Pub/Cache/hosted/pub.dev/supabase_flutter-0.2.12/lib/
+
 term_glyph
 2.12
 file:///C:/Users/nickie%20Boy/AppData/Local/Pub/Cache/hosted/pub.dev/term_glyph-1.2.1/
