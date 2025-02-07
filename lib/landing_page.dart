@@ -35,19 +35,24 @@ class LandingPage extends StatelessWidget {
             ),
             SizedBox(height: 40),
             ElevatedButton(
-              onPressed: () {
-                // Add your action here
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blueAccent,
-                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                textStyle: TextStyle(fontSize: 18),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
-              ),
-              child: Text('View Dashboard'),
-            ),
+  onPressed: () {
+    // Add your action here, like navigating
+    Navigator.pop(context);
+    Navigator.pushNamed(context, '/home');
+  },
+  style: ElevatedButton.styleFrom(
+  backgroundColor: Colors.blueAccent,
+  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+  foregroundColor: Colors.white, // This sets the text color
+  textStyle: TextStyle(fontSize: 18), // Set only the font size here
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(30),
+  ),
+),
+
+  child: Text('View Dashboard'),
+),
+
             SizedBox(height: 40),
             SpinKitFadingCircle(
               color: Colors.blueAccent,

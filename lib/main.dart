@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_hydros/dashboard.dart';
 import 'package:project_hydros/water_data_page.dart';
+import 'package:project_hydros/landing_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: appTitle, // Root widget
-      home: const HomeScreen(title: appTitle,),
+      home: LandingPage(),
       routes: {
         '/home':(context) => const HomeScreen(title: appTitle,),
         '/dashboard':(context) => Dashboard(),
