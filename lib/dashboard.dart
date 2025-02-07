@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:intl/intl.dart';
+
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -28,14 +30,23 @@ class DashboardState extends State<Dashboard> {
       {
         'name': 'water_bed',
         'title': 'Electrical Conductivity',
+        'yAxisData': 'Electrical conductivity (σ) (mS/m)',
         'xColumn': 'created_at',
         'yColumn': 'electrical_conductivity'
       },
       {
         'name': 'greenhouse_monitoring',
         'title': 'Relative Humidity',
+        'yAxisData': 'Relative Humidity %rh',
         'xColumn': 'created_at',
         'yColumn': 'relative_humidity'
+      },
+      {
+        'name': 'water_bed',
+        'title': 'Total Dissolved Oxygen',
+        'yAxisData': 'Dissolved O₂ (mg/L)',
+        'xColumn': 'created_at',
+        'yColumn': 'dissolved_o2_level'
       },
     ];
 
@@ -53,9 +64,7 @@ class DashboardState extends State<Dashboard> {
           final data = response.data as List<dynamic>;
           List<DataPoint> points = data.map((item) {
             return DataPoint(
-              x: DateTime.parse(item['created_at'] as String)
-                  .millisecondsSinceEpoch
-                  .toDouble(),
+              date: DateTime.parse(item['created_at']),
               y: (item[table['yColumn']] as num?)?.toDouble() ?? 0.0,
             );
           }).toList();
@@ -132,10 +141,9 @@ class DashboardState extends State<Dashboard> {
                 child: CarouselSlider(
                   options: CarouselOptions(
                   height: chartHeight,
-                  autoPlay: true,
+                  autoPlay: false,
                   enlargeCenterPage: true,
-                  aspectRatio: 16 / 9,
-                  viewportFraction: 0.85,
+                  viewportFraction: 0.9,
                   enableInfiniteScroll: false,
                   ),
                   items: chartDataList.map((chartData) {
@@ -146,8 +154,8 @@ class DashboardState extends State<Dashboard> {
                     borderRadius: BorderRadius.circular(12),
                     boxShadow: [
                       BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 10,
+                      color: Colors.grey.withOpacity(0,3),
+                      blurRadius: 6,
                       spreadRadius: 2,
                       offset: Offset(0, 4),
                       ),
@@ -175,10 +183,12 @@ class DashboardState extends State<Dashboard> {
                         child: SfCartesianChart(
                         margin: EdgeInsets.zero,
                         primaryXAxis: DateTimeAxis(
-                          isVisible: false, // Hide X axis labels
-                          axisLine: const AxisLine(width: 0),
+                          title: AxisTitle(text: 'Date'),
+                          dateFormat: DateFormat('MM/dd/yyyy HH:mm'), // Format the date and time as needed
+                          edgeLabelPlacement: EdgeLabelPlacement.shift,
                         ),
                         primaryYAxis: NumericAxis(
+                          title: AxisTitle(text: chartData.yAxisData),
                           axisLine: const AxisLine(width: 0),
                           majorTickLines: const MajorTickLines(size: 0),
                         ),
@@ -186,18 +196,16 @@ class DashboardState extends State<Dashboard> {
                         series: <LineSeries<DataPoint, DateTime>>[
                           LineSeries<DataPoint, DateTime>(
                           color: chartData.color,
-                          width: 2,
+                          width: 1,
                           dataSource: chartData.points,
-                          xValueMapper: (DataPoint data, _) =>
-                            DateTime.fromMillisecondsSinceEpoch(
-                              data.x.toInt()),
+                          xValueMapper: (DataPoint data, _) => data.date,
                           yValueMapper: (DataPoint data, _) => data.y,
                           markerSettings: const MarkerSettings(
                             isVisible: true,
                             shape: DataMarkerType.circle,
-                            borderWidth: 2,
-                            height: 6,
-                            width: 6,
+                            borderWidth: 1,
+                            height: 3,
+                            width: 3,
                           ),
                           dataLabelSettings:
                             const DataLabelSettings(
@@ -210,7 +218,6 @@ class DashboardState extends State<Dashboard> {
                         ],
                         tooltipBehavior: TooltipBehavior(
                           enable: true,
-                          format: 'point.y',
                         ),
                         ),
                       ),
@@ -232,6 +239,7 @@ class DashboardState extends State<Dashboard> {
 
 class ChartData {
   final String title;
+  final String yAxisData;
   final List<DataPoint> points;
   final Color color;
 
@@ -239,11 +247,12 @@ class ChartData {
     required this.title,
     required this.points,
     required this.color,
+    required this.yAxisData;
   });
 }
 
 class DataPoint {
-  final double x;
+  final DateTime date;
   final double y;
 
   DataPoint({required this.x, required this.y});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_hydros/dashboard.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
+import 'package:project_hydros/water_data_page.dart';
 
 void main() async {
   // Replace with your actual API key
@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/home':(context) => const HomeScreen(title: appTitle,),
         '/dashboard':(context) => Dashboard(),
+        '/history':(context) => WaterDataPage(),
       }
     );
   }
@@ -86,6 +87,18 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.pushNamed(context, '/dashboard');
             },
           ),
+          ListTile(
+            leading: Icon(Icons.list),
+            title: Text('Historical List'), // This should ideally lead to a different route or page.
+                            // For now, it will just close the drawer.
+                            // Consider adding a settings page or route.
+                            // Here it leads back to home for demonstration purposes.
+                            // You can change this as needed based on your app structure.
+                          onTap: () {
+                              Navigator.pop(context);
+                              Navigator.pushNamed(context, '/history');
+                          },
+                  ),
           ListTile(
             leading: Icon(Icons.settings),
             title: Text('Settings'), // This should ideally lead to a different route or page.
