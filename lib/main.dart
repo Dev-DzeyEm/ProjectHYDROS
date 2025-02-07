@@ -1,7 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:project_hydros/dashboard.dart';
+import 'package:project_hydros/water_data_page.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-void main() => runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  const supabaseUrl = 'https://bndwsjneufdbocwgqcbe.supabase.co';
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJuZHdzam5ldWZkYm9jd2dxY2JlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg4MDI5MjIsImV4cCI6MjA1NDM3ODkyMn0.JzjepJzfz7cUki7bsCvDFICrBKFmbiAhBhvDdZ8oYNQ';
+
+  await Supabase.initialize(url: supabaseUrl, anonKey: supabaseKey);
+
+  runApp(MyApp());
+}
+
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -16,6 +29,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/home':(context) => const HomeScreen(title: appTitle,),
         '/dashboard':(context) => Dashboard(),
+        '/history':(context) => WaterDataPage(),
       }
     );
   }
@@ -77,6 +91,18 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.pushNamed(context, '/dashboard');
             },
           ),
+          ListTile(
+            leading: Icon(Icons.list),
+            title: Text('Historical List'), // This should ideally lead to a different route or page.
+                            // For now, it will just close the drawer.
+                            // Consider adding a settings page or route.
+                            // Here it leads back to home for demonstration purposes.
+                            // You can change this as needed based on your app structure.
+                          onTap: () {
+                              Navigator.pop(context);
+                              Navigator.pushNamed(context, '/history');
+                          },
+                  ),
           ListTile(
             leading: Icon(Icons.settings),
             title: Text('Settings'), // This should ideally lead to a different route or page.
