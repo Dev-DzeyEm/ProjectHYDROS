@@ -135,7 +135,7 @@
     },
     {
       "name": "intl",
-      "rootUri": "file:///C:/Users/DzeyEm/AppData/Local/Pub/Cache/hosted/pub.dev/intl-0.18.1",
+      "rootUri": "file:///C:/Users/Developer/AppData/Local/Pub/Cache/hosted/pub.dev/intl-0.18.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -309,13 +309,13 @@
     },
     {
       "name": "syncfusion_flutter_charts",
-      "rootUri": "file:///C:/Users/DzeyEm/AppData/Local/Pub/Cache/hosted/pub.dev/syncfusion_flutter_charts-23.2.7",
+      "rootUri": "file:///C:/Users/Developer/AppData/Local/Pub/Cache/hosted/pub.dev/syncfusion_flutter_charts-23.2.7",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "syncfusion_flutter_core",
-      "rootUri": "file:///C:/Users/DzeyEm/AppData/Local/Pub/Cache/hosted/pub.dev/syncfusion_flutter_core-23.2.7",
+      "rootUri": "file:///C:/Users/Developer/AppData/Local/Pub/Cache/hosted/pub.dev/syncfusion_flutter_core-23.2.7",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
@@ -446,9 +446,7 @@
       "languageVersion": "3.6"
     }
   ],
-
-  "generated": "2025-02-07T02:19:58.172619Z",
-
+  "generated": "2025-02-07T03:51:35.376111Z",
   "generator": "pub",
   "generatorVersion": "3.6.2",
   "flutterRoot": "file:///C:/flutter",
