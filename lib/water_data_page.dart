@@ -8,6 +8,8 @@ class WaterDataPage extends StatefulWidget {
 
 class _WaterDataPageState extends State<WaterDataPage> {
   List<Map<String, dynamic>> waterData = [];
+  int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
+  int _currentPage = 0;
 
   @override
   void initState() {
@@ -38,7 +40,15 @@ class _WaterDataPageState extends State<WaterDataPage> {
       body: waterData.isEmpty
           ? Center(child: CircularProgressIndicator()) // Show loading indicator
           : SingleChildScrollView(
-              child: DataTable(
+              child: PaginatedDataTable(
+                header: Text('Water Bed Data'),
+                rowsPerPage: _rowsPerPage,
+                onRowsPerPageChanged: (rowsPerPage) {
+                  setState(() {
+                    _rowsPerPage = rowsPerPage!;
+                  });
+                },
+                availableRowsPerPage: [5, 10, 20],
                 columns: [
                   DataColumn(label: Text('ID')),
                   DataColumn(label: Text('Created At')),
@@ -54,23 +64,12 @@ class _WaterDataPageState extends State<WaterDataPage> {
                   DataColumn(label: Text('Timestamp')),
                   DataColumn(label: Text('Sensor ID')),
                 ],
-                rows: waterData.map((data) {
-                  return DataRow(cells: [
-                    DataCell(Text(data['id'].toString())),
-                    DataCell(Text(data['created_at']?.toString() ?? '')),
-                    DataCell(Text(data['updated_at']?.toString() ?? '')),
-                    DataCell(Text(data['water_temperature'].toString())),
-                    DataCell(Text(data['dissolved_o2_level'].toString())),
-                    DataCell(Text(data['electrical_conductivity'].toString())),
-                    DataCell(Text(data['total_dissolved_solids'].toString())),
-                    DataCell(Text(data['nitrate'].toString())),
-                    DataCell(Text(data['nitrite'].toString())),
-                    DataCell(Text(data['ammonia'].toString())),
-                    DataCell(Text(data['ph_level'].toString())),
-                    DataCell(Text(data['timestamp']?.toString() ?? '')),
-                    DataCell(Text(data['sensor_id'].toString())),
-                  ]);
-                }).toList(),
+                source: _DataTableSource(waterData),
+                onPageChanged: (pageIndex) {
+                  setState(() {
+                    _currentPage = pageIndex!;
+                  });
+                },
               ),
             ),
       floatingActionButton: FloatingActionButton(
@@ -81,4 +80,40 @@ class _WaterDataPageState extends State<WaterDataPage> {
       ),
     );
   }
+}
+
+class _DataTableSource extends DataTableSource {
+  final List<Map<String, dynamic>> data;
+
+  _DataTableSource(this.data);
+
+  @override
+  DataRow? getRow(int index) {
+    if (index >= data.length) return null;
+    var row = data[index];
+    return DataRow(cells: [
+      DataCell(Text(row['id'].toString())),
+      DataCell(Text(row['created_at']?.toString() ?? '')),
+      DataCell(Text(row['updated_at']?.toString() ?? '')),
+      DataCell(Text(row['water_temperature'].toString())),
+      DataCell(Text(row['dissolved_o2_level'].toString())),
+      DataCell(Text(row['electrical_conductivity'].toString())),
+      DataCell(Text(row['total_dissolved_solids'].toString())),
+      DataCell(Text(row['nitrate'].toString())),
+      DataCell(Text(row['nitrite'].toString())),
+      DataCell(Text(row['ammonia'].toString())),
+      DataCell(Text(row['ph_level'].toString())),
+      DataCell(Text(row['timestamp']?.toString() ?? '')),
+      DataCell(Text(row['sensor_id'].toString())),
+    ]);
+  }
+
+  @override
+  int get rowCount => data.length;
+
+  @override
+  bool get isRowCountApproximate => false;
+
+  @override
+  int get selectedRowCount => 0;
 }
