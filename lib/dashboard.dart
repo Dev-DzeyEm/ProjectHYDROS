@@ -17,8 +17,6 @@ class DashboardState extends State<Dashboard> {
   bool isLoading = true;
   String? errorMessage;
 
-  int _currentCarouselIndex = 0; 
-
   @override
   void initState() {
     super.initState();
@@ -30,7 +28,7 @@ class DashboardState extends State<Dashboard> {
       {
         'name': 'water_bed',
         'title': 'Electrical Conductivity',
-        'yAxisData': 'Electrical conductivity (σ) (mS/m)',
+        'yAxisData': 'Electrical conductivity (mS/m)',
         'xColumn': 'created_at',
         'yColumn': 'electrical_conductivity'
       },
@@ -71,6 +69,7 @@ class DashboardState extends State<Dashboard> {
 
           fetchedData.add(ChartData(
               title: table['title'] as String,
+              yAxisData: table['yAxisData'] as String,
               points: points,
               color: _getChartColor(fetchedData.length)));
         } else {
@@ -154,7 +153,8 @@ class DashboardState extends State<Dashboard> {
                     borderRadius: BorderRadius.circular(12),
                     boxShadow: [
                       BoxShadow(
-                      color: Colors.grey.withOpacity(0,3),
+                        // ignore: deprecated_member_use
+                        color: Colors.grey.withOpacity(0.5),
                       blurRadius: 6,
                       spreadRadius: 2,
                       offset: Offset(0, 4),
@@ -184,8 +184,11 @@ class DashboardState extends State<Dashboard> {
                         margin: EdgeInsets.zero,
                         primaryXAxis: DateTimeAxis(
                           title: AxisTitle(text: 'Date'),
-                          dateFormat: DateFormat('MM/dd/yyyy HH:mm'), // Format the date and time as needed
+                          dateFormat: DateFormat('MM/dd/yyyy'), // Format the date and time as needed
                           edgeLabelPlacement: EdgeLabelPlacement.shift,
+                          interval: 1, // Show one label per day
+                          intervalType: DateTimeIntervalType.days, // Set the interval type to days
+                          labelIntersectAction: AxisLabelIntersectAction.hide, // Hide intersecting labels
                         ),
                         primaryYAxis: NumericAxis(
                           title: AxisTitle(text: chartData.yAxisData),
@@ -209,25 +212,30 @@ class DashboardState extends State<Dashboard> {
                           ),
                           dataLabelSettings:
                             const DataLabelSettings(
-                            isVisible: true,
+                            isVisible: false,
                             labelAlignment:
                               ChartDataLabelAlignment.top,
                             textStyle: TextStyle(fontSize: 10),
                           ),
                           ),
+                          
                         ],
                         tooltipBehavior: TooltipBehavior(
-                          enable: true,
-                        ),
+                            enable: true,
+                            format: 'point.x : point.y',
+                            // For better date formatting, use:
+                            // format: '${DateFormat.yMd().add_jm().format(point.x)}: ${point.y.toStringAsFixed(2)}',
+                            header: '', // Remove series name header
+                          ),
                         ),
                       ),
-                      ],
+                   ],
                     ),
-                    ),
+                  ),
                   );
-                  }).toList(),
+                }).toList(),
                 ),
-                ),
+              ),
             
             // Add other dashboard content here
           ],
@@ -247,7 +255,7 @@ class ChartData {
     required this.title,
     required this.points,
     required this.color,
-    required this.yAxisData;
+    required this.yAxisData,
   });
 }
 
@@ -255,5 +263,5 @@ class DataPoint {
   final DateTime date;
   final double y;
 
-  DataPoint({required this.x, required this.y});
+  DataPoint({required this.date, required this.y});
 }
