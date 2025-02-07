@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:project_hydros/dashboard.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-void main() => runApp(const MyApp());
 
+void main() async {
+  // Replace with your actual API key
+  WidgetsFlutterBinding.ensureInitialized();
+  const supabaseUrl = 'https://bndwsjneufdbocwgqcbe.supabase.co';
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJuZHdzam5ldWZkYm9jd2dxY2JlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg4MDI5MjIsImV4cCI6MjA1NDM3ODkyMn0.JzjepJzfz7cUki7bsCvDFICrBKFmbiAhBhvDdZ8oYNQ';
+
+  await Supabase.initialize(url: supabaseUrl, anonKey: supabaseKey);
+  runApp(MyApp());
+}
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
